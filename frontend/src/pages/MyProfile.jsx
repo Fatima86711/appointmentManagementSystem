@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext';
 import { assets } from '../../../admin/src/assets/assets.js';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { AdminContext } from '../../../admin/src/context/AdminContext';
+// import { AdminContext } from '../../../admin/src/context/AdminContext';
 const MyProfile = () => {
   // const {userData,setUserData} = useContext(AppContext);
   const {userData, setUserData, token, backendUrl, loadUserProfileData} = useContext(AppContext)
