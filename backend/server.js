@@ -32,7 +32,7 @@ const allowedOrigins = [
   'http://localhost:5175',
   'https://appointment-api-nine.vercel.app', 
   'https://appointment-management-system-six.vercel.app', 
-  'https://your-admin-domain.vercel.app' 
+  'https://appointment-management-system-admin-two.vercel.app' 
 ];
 
 const corsOptions = {
