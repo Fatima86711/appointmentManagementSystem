@@ -28,13 +28,14 @@ app.use(express.json())
 // --- NEW CORS CONFIGURATION START ---
 const allowedOrigins = [
   'http://localhost:5173', 
-  'http://localhost:5174', // Added in case your admin panel uses 5174 locally
-  'https://appointment-api-nine.vercel.app/', // Your deployed backend
-  'https://your-frontend-domain.vercel.app', // ⚠️ UPDATE THIS: Your deployed frontend URL
-  'https://your-admin-domain.vercel.app'     // ⚠️ UPDATE THIS: Your deployed admin URL
+  'http://localhost:5174', 
+  'http://localhost:5175',
+  'https://appointment-api-nine.vercel.app', 
+  'https://appointment-management-system-six.vercel.app', 
+  'https://your-admin-domain.vercel.app' 
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -43,10 +44,13 @@ app.use(cors({
     }
   },
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+
+// ADD THIS LINE: Explicitly tell Express to answer Preflight/OPTIONS requests
+app.options('*', cors(corsOptions)); 
 // --- NEW CORS CONFIGURATION END ---
-
-
 
 
 // api endpoints

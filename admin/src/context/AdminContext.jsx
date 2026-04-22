@@ -1,11 +1,16 @@
 import axios from "axios";
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
-export const AdminContext = createContext();
-const AdminContextProvider = (props) =>{
-    const [aToken, setAToken] = useState(localStorage.getItem('aToken')?localStorage.getItem('aToken'):'');
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+export const AdminContext = createContext();
+
+const AdminContextProvider = (props) =>{
+    const [aToken, setAToken] = useState(localStorage.getItem('aToken') ? localStorage.getItem('aToken') : '');
+
+    // The Bulletproof URL logic
+    const rawUrl = import.meta.env.VITE_BACKEND_URL || "";
+    const backendUrl = rawUrl.endsWith('/') ? rawUrl.slice(0, -1) : rawUrl;
+    
     const [doctors, setDoctors] = useState([]);
 
     const getAllDoctors = async()=>{
@@ -25,7 +30,7 @@ const AdminContextProvider = (props) =>{
         }
     }
 
-        const changeAvailability = async(docId)=>{
+    const changeAvailability = async(docId)=>{
         try{
             const {data} = await axios.post(`${backendUrl}/api/admin/change-availability`,{docId},{
             headers: { atoken: aToken }
@@ -36,18 +41,14 @@ const AdminContextProvider = (props) =>{
             }else{
                 toast.error(data.message);
             }
-        
-        
-        
         }catch(error){
                 toast.error(error.response?.data?.message || error.message)
             }
         }
+        
     const value = {
-        aToken, setAToken, backendUrl, doctors, getAllDoctors,changeAvailability
+        aToken, setAToken, backendUrl, doctors, getAllDoctors, changeAvailability
     }
-
-
 
     return (
         <AdminContext.Provider value={value}>
