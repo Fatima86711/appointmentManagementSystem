@@ -49,7 +49,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // ADD THIS LINE: Explicitly tell Express to answer Preflight/OPTIONS requests
-app.options('*', cors(corsOptions)); 
+app.options(/(.*)/, cors(corsOptions));
 // --- NEW CORS CONFIGURATION END ---
 
 
